@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="full-body" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/02/16/51/tied-up-1792237_960_720.jpg'); height: 100vh;
+     background-repeat: no-repeat !important; background-attachment: scroll; background-position: center top; background-size: auto; background-attachment: fixed; background-size: cover;">
+
+        <nav class="navbar navbar-expand-lg  navbar-dark">
+          <a class="navbar-brand" href="https://newfold.com/" style="color:#69b576; font-weight: bold;">The Collaborator</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <!-- User Login Form       -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                {% if user.is_authenticated %}
+                    <br>
+                    <a class="nav-link" href="{% url 'app_one:logout' %}">Logout</a>
+                {% else %}
+                    <form action="{% url 'index' %}" method="POST" class="form-inline my-2 my-lg-0">
+                        {% csrf_token %}
+                        {{ form }}
+                        <br>
+                        <button type="submit" class="btn btn-outline-light my-2 my-sm-0">Login</button>
+                    </form>
+                {% endif %}
+            </div>
+        </nav>
+        <div style="color:#133b13; text-align: center;">
+            {% if user.is_authenticated %}
+                <h4 ><br>Welcome <strong>{{user.username}}</strong>! Your Login was sucessful.</h4>
+                <h7>This website is one week old. Please wait for sometime, until we launch full version.</h7>
+
+            {% else %}
+                <h4 ><br>Welcome to Centralized Framework Distribution Platform.</h4>
+                <h7>Please <strong>Login</strong> or <a href="{% url 'app_one:register' %}" style="color: #c018de;"><strong>Sign Up</strong></a> to download framework that suits your requirement.</h7>
+            {% endif %}
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>

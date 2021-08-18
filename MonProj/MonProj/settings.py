@@ -16,7 +16,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_FILES = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -27,8 +29,7 @@ SECRET_KEY = 'django-insecure-x$3#7x-zqqqt5ddsrto7bz#-p3j$u63fv_+5$09fhuvz@tm$=4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['adityakumar.pythonanywhere.com', 'community.pythonanywhere.com']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'adityakumar.pythonanywhere.com', 'community.pythonanywhere.com']
 
 # Application definition
 
@@ -88,12 +89,22 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
+PASSWORD_HASHERS =  [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+]
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS':{'min_length':6}
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -122,9 +133,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    STATIC_FILES,
-]
+STATICFILES_DIRS = [STATIC_DIR]
+
+
+# MEDIA
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+
+LOGIN_URL = 'app_one/user_login'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

@@ -1,15 +1,31 @@
 from django import forms
-from .models import User_Authentication
+from django.contrib.auth.models import User
+from .models import User_Authentication, UserProfileInfo
+
+
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = UserProfileInfo
+        fields = ('social_site', 'profile_pic')
 
 
 class LoginForm(forms.Form):
-    phone_or_email = forms.CharField(
+    username = forms.CharField(
         widget=forms.TextInput(
             attrs={
                 'type': 'text',
-                'placeholder':'Phone/Email',
-                'class':'form-control mr-sm-2',
-                'id': 'Phone_Email',
+                'placeholder': 'Username',
+                'class': 'form-control mr-sm-2',
+                'id': 'username',
+                'name': 'username'
             }),
         label='',
         required=True
@@ -17,14 +33,16 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'type': 'password',
-                'placeholder':'Password',
-                'class':'form-control mr-sm-2',
-                'id': 'Password',
+                'type': 'Password',
+                'placeholder': 'Password',
+                'class': 'form-control mr-sm-2',
+                'id': 'password',
+                'name': 'password'
             }),
         label='',
         required=True
     )
+
 
 class user_login(forms.ModelForm):
     class Meta:

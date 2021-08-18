@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New User Registration</title>
+</head>
+<body>
+
+    <div class="jumbotron">
+        {% if registered %}
+            <h1>Thank you for registering!</h1>
+
+        {% else %}
+            <h1>Register Here!</h1>
+            <h4>Fill out the form: </h4>
+
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <input type = 'submit' name="" value="Sign up">
+        </form>
+        {% endif %}
+    </div>
+
+</body>
+</html>
